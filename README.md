@@ -22,33 +22,42 @@ This tutorial outlines the implementation of on-premises Active Directory within
 
 <h2>High-Level Deployment and Configuration Steps</h2>
 
-- Step 1
-- Step 2
-- Step 3
-- Step 4
+- Install Active Directory
+- Create a Domain Admin User within the Domain
+- Setup Remote Desktop for non-administrative users on Client-1
+- Create many additional users and attempt to login into client-1 with one of the users
 
 <h2>Deployment and Configuration Steps</h2>
 
 <p>
-<img src="https://i.imgur.com/DJmEXEB.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<img width="356" alt="image" src="https://github.com/user-attachments/assets/0ed579b2-375a-4d97-8da8-d55db8f9d587" />
 </p>
 <p>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-</p>
-<br />
-
-<p>
-<img src="https://i.imgur.com/DJmEXEB.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-</p>
-<p>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+First we log into our Azure Virtual Machine aptly name DC-1 (Domain Controller) and install Active Directory services. Once installed we promote the server to Domain Controller. After, we create a new forest called mydomain.com, restart the computer, and log in with the prefix mydomain.com\username.  
 </p>
 <br />
 
 <p>
-<img src="https://i.imgur.com/DJmEXEB.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<img width="455" alt="image" src="https://github.com/user-attachments/assets/04062709-8a11-467c-9e86-4d57081db467" />
 </p>
 <p>
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+Now we create a Domain Admin User within the domain. First, open Active Directory Users and Computers and create 2 new Organizational Units, one for "_EMPLOYEES," and one for "_ADMINS." Create a new employee called Jane Doe with username jane_admin and add Jane to the Domain Admins Security Group. From now on we use jane_admin as our administrator account.
+</p>
+<br />
+
+<p>
+<img width="170" alt="image" src="https://github.com/user-attachments/assets/2c2049e8-f7c0-4882-aa9c-8be45dea0734" />
+</p>
+<p>
+Next, we setup Remote Desktop for non-administrative users on Client-1. We start by logging into Client-1 as mydomain.com\jane-admin. Open system properties, click "Remote Desktop," allow "domain users" access to remote desktop. You can now log into Client-1 as a normal, non-administrative user. 
+</p>
+<br />
+
+<p>
+<img width="271" alt="image" src="https://github.com/user-attachments/assets/60b2011e-4cce-4a25-b711-18086afbbd01" />
+</p>
+<p>
+Lastly, we create additional users utilizing a Powershell_ISE script. In order to do so we first login into DC-1 as jane-admin, open Powershell_ISE as an administrator, create a new file and paste the script into the window. Now we can observe the accounts being created in ADUC(Active Directory Users and Computers) within the appropriate OU(Organizational Unit) "_EMPLOYEES." 
+We can now log into Client-1 with any of the generated usernames. 
 </p>
 <br />
